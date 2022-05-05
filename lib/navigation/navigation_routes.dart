@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_multiple_navigation_stacks_1/pages/404.dart';
-import 'package:flutter_multiple_navigation_stacks_1/pages/hello_world_page.dart';
+import 'package:flutter_multiple_navigation_stacks_1/navigation/main_navigation.dart';
+import 'package:flutter_multiple_navigation_stacks_1/pages/fork.dart';
 
-class MainNavigatorRoutes {
+class NavigationRoutes {
   static const String root = "/";
-  static const String hello = "/hello";
+  static const String map = "/map";
+  static const String cart = "/cart";
+  static const String profile = "/profile";
+  static const String product = "/product";
 }
 
 class MainNavigatorRouter {
   static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case MainNavigatorRoutes.root:
-        return MaterialPageRoute(
-            builder: (_) => HelloWorldPage(title: "Home page"));
-      case MainNavigatorRoutes.hello:
-        return MaterialPageRoute(
-            builder: (_) => HelloWorldPage(title: "Hello world"));
+      case NavigationRoutes.root:
+        return MaterialPageRoute(builder: (_) => const MainNavigation());
+      // case HomeNavigatorRoutes.report:
+      //   return MaterialPageRoute(
+      //     builder: (_) => ReportPage(),
+      //     fullscreenDialog: true,
+      //   );
     }
-    return MaterialPageRoute(builder: (_) => PageNotFound());
+    return null;
   }
 }

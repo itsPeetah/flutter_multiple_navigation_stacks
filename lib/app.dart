@@ -1,85 +1,122 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_multiple_navigation_stacks_1/navigation/bottom_navigation.dart';
-import 'package:flutter_multiple_navigation_stacks_1/navigation/tab_item.dart';
-import 'package:flutter_multiple_navigation_stacks_1/navigation/tab_navigator.dart';
-import 'package:flutter_multiple_navigation_stacks_1/pages/color_detail_page.dart';
 
-class App extends StatefulWidget {
-  @override
-  State<App> createState() => AppState();
-}
-
-class AppState extends State<App> {
-  final navigatorKey = GlobalKey<NavigatorState>();
-  TabItem currentTab = TabItem.red;
-
-  Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
-    TabItem.red: GlobalKey<NavigatorState>(),
-    TabItem.green: GlobalKey<NavigatorState>(),
-    TabItem.blue: GlobalKey<NavigatorState>(),
-  };
-
-  void _selectTab(TabItem tabItem) {
-    setState(() {
-      currentTab = tabItem;
-    });
-  }
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async =>
-          !await navigatorKeys[currentTab]!.currentState!.maybePop(),
-      child: Scaffold(
-        body: Stack(children: <Widget>[
-          _buildOffstageNavigator(TabItem.red),
-          _buildOffstageNavigator(TabItem.green),
-          _buildOffstageNavigator(TabItem.blue),
-        ]),
-        bottomNavigationBar: BottomNavigation(
-          currentTab: currentTab,
-          onSelectTab: _selectTab,
+    return MaterialApp(
+      title: 'Flutter Code Sample for Navigator',
+      // MaterialApp contains our top-level Navigator
+      initialRoute: '/',
+      routes: <String, WidgetBuilder>{
+        '/': (BuildContext context) => const HomePage(),
+        '/signup': (BuildContext context) => const SignUpPage(),
+      },
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTextStyle(
+      style: Theme.of(context).textTheme.headline4!,
+      child: Container(
+        color: Colors.white,
+        alignment: Alignment.center,
+        child: const Text('Home Page'),
+      ),
+    );
+  }
+}
+
+class CollectPersonalInfoPage extends StatelessWidget {
+  const CollectPersonalInfoPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTextStyle(
+      style: Theme.of(context).textTheme.headline4!,
+      child: GestureDetector(
+        onTap: () {
+          // This moves from the personal info page to the credentials page,
+          // replacing this page with that one.
+          Navigator.of(context)
+              .pushReplacementNamed('signup/choose_credentials');
+        },
+        child: Container(
+          color: Colors.lightBlue,
+          alignment: Alignment.center,
+          child: const Text('Collect Personal Info Page'),
         ),
       ),
     );
   }
+}
 
-  Widget buildBody() {
-    return Container(
-      color: currentTab == TabItem.red
-          ? Colors.red
-          : currentTab == TabItem.blue
-              ? Colors.blue
-              : Colors.green,
-      alignment: Alignment.center,
-      child: TextButton(
-        onPressed: onButtonPush,
-        child: const Text(
-          "Push",
-          style: TextStyle(fontSize: 20.0, color: Colors.white),
+class ChooseCredentialsPage extends StatelessWidget {
+  const ChooseCredentialsPage({
+    Key? key,
+    required this.onSignupComplete,
+  }) : super(key: key);
+
+  final VoidCallback onSignupComplete;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onSignupComplete,
+      child: DefaultTextStyle(
+        style: Theme.of(context).textTheme.headline4!,
+        child: Container(
+          color: Colors.pinkAccent,
+          alignment: Alignment.center,
+          child: const Text('Choose Credentials Page'),
         ),
       ),
     );
   }
+}
 
-  void onButtonPush() {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => ColorDetailPage(
-            color: currentTab == TabItem.red
-                ? Colors.red
-                : currentTab == TabItem.blue
-                    ? Colors.blue
-                    : Colors.green,
-            title: "Lol")));
-  }
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
-  Widget _buildOffstageNavigator(TabItem tabItem) {
-    return Offstage(
-      offstage: currentTab != tabItem,
-      child: TabNavigator(
-        navigatorKey: navigatorKeys[tabItem],
-        tabItem: tabItem,
-      ),
+  @override
+  Widget build(BuildContext context) {
+    // SignUpPage builds its own Navigator which ends up being a nested
+    // Navigator in our app.
+    return Navigator(
+      initialRoute: 'signup/personal_info',
+      onGenerateRoute: (RouteSettings settings) {
+        WidgetBuilder builder;
+        switch (settings.name) {
+          case 'signup/personal_info':
+            // Assume CollectPersonalInfoPage collects personal info and then
+            // navigates to 'signup/choose_credentials'.
+            builder = (BuildContext context) => const CollectPersonalInfoPage();
+            break;
+          case 'signup/choose_credentials':
+            // Assume ChooseCredentialsPage collects new credentials and then
+            // invokes 'onSignupComplete()'.
+            builder = (BuildContext _) => ChooseCredentialsPage(
+                  onSignupComplete: () {
+                    // Referencing Navigator.of(context) from here refers to the
+                    // top level Navigator because SignUpPage is above the
+                    // nested Navigator that it created. Therefore, this pop()
+                    // will pop the entire "sign up" journey and return to the
+                    // "/" route, AKA HomePage.
+                    Navigator.of(context).pop();
+                  },
+                );
+            break;
+          default:
+            throw Exception('Invalid route: ${settings.name}');
+        }
+        return MaterialPageRoute<void>(builder: builder, settings: settings);
+      },
     );
   }
 }

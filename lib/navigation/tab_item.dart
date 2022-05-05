@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 
-enum TabItem { red, green, blue, home, hello, profile }
+enum TabItem { home, map, cart, profile }
 
 const Map<TabItem, String> tabName = {
-  TabItem.red: 'red',
-  TabItem.green: 'green',
-  TabItem.blue: 'blue',
-  TabItem.home: 'home',
-  TabItem.hello: 'hello',
-  TabItem.profile: 'profile',
-};
-
-const Map<TabItem, MaterialColor> activeTabColor = {
-  TabItem.red: Colors.red,
-  TabItem.green: Colors.green,
-  TabItem.blue: Colors.blue,
+  TabItem.home: "Home",
+  TabItem.map: "Map",
+  TabItem.cart: "Cart",
+  TabItem.profile: "Profile"
 };
 
 const Map<TabItem, IconData> tabIcon = {
   TabItem.home: Icons.home,
+  TabItem.map: Icons.map_outlined,
+  TabItem.cart: Icons.shopping_cart,
   TabItem.profile: Icons.person
 };
