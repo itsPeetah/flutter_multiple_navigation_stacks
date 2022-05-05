@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multiple_navigation_stacks_1/util/navigation/tab_item.dart';
 
-class BottomNavigation extends StatelessWidget {
-  const BottomNavigation(
+class BottomTabBar extends StatelessWidget {
+  const BottomTabBar(
       {Key? key, required this.currentTab, required this.onSelectTab})
       : super(key: key);
   final TabItem currentTab;

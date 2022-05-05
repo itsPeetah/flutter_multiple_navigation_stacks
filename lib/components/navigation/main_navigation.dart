@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multiple_navigation_stacks_1/components/navigation/bottom_navigation.dart';
-import 'package:flutter_multiple_navigation_stacks_1/components/navigation/tab_navigator.dart';
-import 'package:flutter_multiple_navigation_stacks_1/pages/hello.dart';
+import 'package:flutter_multiple_navigation_stacks_1/components/navigation/nested_navigator.dart';
+import 'package:flutter_multiple_navigation_stacks_1/util/navigation/navigation_routes.dart';
 import 'package:flutter_multiple_navigation_stacks_1/util/navigation/tab_item.dart';
 
 class MainNavigation extends StatefulWidget {
@@ -17,17 +17,26 @@ class MainNavigationState extends State<MainNavigation> {
 
   // Navigator key used for nested navigation in the home page
   final _homeNavigatorKey = GlobalKey<NavigatorState>();
-
-  Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
-    TabItem.home: GlobalKey<NavigatorState>(),
-    TabItem.map: GlobalKey<NavigatorState>(),
-    TabItem.cart: GlobalKey<NavigatorState>(),
-    TabItem.profile: GlobalKey<NavigatorState>(),
-  };
+  final _mapNavigatorKey = GlobalKey<NavigatorState>();
+  final _cartNavigatorKey = GlobalKey<NavigatorState>();
+  final _profileNavigatorKey = GlobalKey<NavigatorState>();
 
   void _selectTab(TabItem tabItem) {
     if (tabItem == _currentTab) {
-      navigatorKeys[tabItem]!.currentState!.popUntil((route) => route.isFirst);
+      switch (tabItem) {
+        case TabItem.home:
+          _homeNavigatorKey.currentState!.popUntil((route) => route.isFirst);
+          break;
+        case TabItem.map:
+          _mapNavigatorKey.currentState!.popUntil((route) => route.isFirst);
+          break;
+        case TabItem.cart:
+          _cartNavigatorKey.currentState!.popUntil((route) => route.isFirst);
+          break;
+        case TabItem.profile:
+          _profileNavigatorKey.currentState!.popUntil((route) => route.isFirst);
+          break;
+      }
     } else {
       setState(() {
         _pageController.jumpToPage(tabItem.index);
@@ -42,10 +51,10 @@ class MainNavigationState extends State<MainNavigation> {
       body: PageView(
         controller: _pageController,
         children: [
-          _buildTabNavigator(TabItem.home),
-          _buildTabNavigator(TabItem.map),
-          _buildTabNavigator(TabItem.cart),
-          _buildTabNavigator(TabItem.profile),
+          _buildNavigator(TabItem.home),
+          _buildNavigator(TabItem.map),
+          _buildNavigator(TabItem.cart),
+          _buildNavigator(TabItem.profile),
         ],
       ),
       bottomNavigationBar: BottomNavigation(
@@ -55,8 +64,32 @@ class MainNavigationState extends State<MainNavigation> {
     );
   }
 
-  TabNavigator _buildTabNavigator(TabItem tabItem) {
-    return TabNavigator(
-        navigatorKey: navigatorKeys[tabItem]!, tabItem: tabItem);
+  Widget _buildNavigator(TabItem tabItem) {
+    switch (tabItem) {
+      case TabItem.home:
+        return NestedNavigator(
+          navigatorKey: _homeNavigatorKey,
+          initialRoute: TabNavigatorRoutes.home,
+          onGenerateRoute: TabNavigatorRouter.generateRoute,
+        );
+      case TabItem.map:
+        return NestedNavigator(
+          navigatorKey: _mapNavigatorKey,
+          initialRoute: TabNavigatorRoutes.map,
+          onGenerateRoute: TabNavigatorRouter.generateRoute,
+        );
+      case TabItem.cart:
+        return NestedNavigator(
+          navigatorKey: _cartNavigatorKey,
+          initialRoute: TabNavigatorRoutes.cart,
+          onGenerateRoute: TabNavigatorRouter.generateRoute,
+        );
+      case TabItem.profile:
+        return NestedNavigator(
+          navigatorKey: _profileNavigatorKey,
+          initialRoute: TabNavigatorRoutes.profile,
+          onGenerateRoute: TabNavigatorRouter.generateRoute,
+        );
+    }
   }
 }
