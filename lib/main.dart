@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_multiple_navigation_stacks_1/util/navigation/navigation_routes.dart';
+import 'package:flutter_multiple_navigation_stacks_1/util/navigation/main_routes.dart';
 
 void main() {
   runApp(const MyApp());

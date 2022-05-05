@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multiple_navigation_stacks_1/components/navigation/main_navigation.dart';
 import 'package:flutter_multiple_navigation_stacks_1/pages/404.dart';
-import 'package:flutter_multiple_navigation_stacks_1/pages/hello.dart';
 
 class MainNavigationRoutes {
   static const String root = "/";
@@ -16,9 +15,10 @@ class MainNavigatorRouter {
   static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       /* Put here the cases for checkout, payment... */
-      //case MainNavigationRoutes.root:
-      default:
+      case MainNavigationRoutes.root:
         return MaterialPageRoute(builder: (_) => const MainNavigation());
+      default:
+        return MaterialPageRoute(builder: (_) => const PageNotFound());
     }
   }
 }
