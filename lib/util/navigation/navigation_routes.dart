@@ -5,6 +5,7 @@ class MainNavigationRoutes {
   static const String root = "/";
 }
 
+// Generate routes for the main navigation
 class MainNavigatorRouter {
   static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -16,6 +17,6 @@ class MainNavigatorRouter {
 }
 
 class TabNavigatorRoutes {
-  static const String root = '/';
+  static const String root = '/home';
   static const String detail = '/detail';
 }

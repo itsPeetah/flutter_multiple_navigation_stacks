@@ -27,10 +27,7 @@ class MainNavigationState extends State<MainNavigation> {
 
   void _selectTab(TabItem tabItem) {
     if (tabItem == _currentTab) {
-      if (_currentTab == TabItem.home) {
-        // pop to first route
-        _homeNavigatorKey.currentState!.popUntil((route) => route.isFirst);
-      }
+      navigatorKeys[tabItem]!.currentState!.popUntil((route) => route.isFirst);
     } else {
       setState(() {
         _pageController.jumpToPage(tabItem.index);
@@ -45,17 +42,10 @@ class MainNavigationState extends State<MainNavigation> {
       body: PageView(
         controller: _pageController,
         children: [
-          TabNavigator(
-              navigatorKey: navigatorKeys[TabItem.home]!,
-              tabItem: TabItem.home),
-          TabNavigator(
-              navigatorKey: navigatorKeys[TabItem.map]!, tabItem: TabItem.map),
-          TabNavigator(
-              navigatorKey: navigatorKeys[TabItem.cart]!,
-              tabItem: TabItem.cart),
-          TabNavigator(
-              navigatorKey: navigatorKeys[TabItem.profile]!,
-              tabItem: TabItem.profile),
+          _buildTabNavigator(TabItem.home),
+          _buildTabNavigator(TabItem.map),
+          _buildTabNavigator(TabItem.cart),
+          _buildTabNavigator(TabItem.profile),
         ],
       ),
       bottomNavigationBar: BottomNavigation(
@@ -63,5 +53,10 @@ class MainNavigationState extends State<MainNavigation> {
         onSelectTab: _selectTab,
       ),
     );
+  }
+
+  TabNavigator _buildTabNavigator(TabItem tabItem) {
+    return TabNavigator(
+        navigatorKey: navigatorKeys[tabItem]!, tabItem: tabItem);
   }
 }
