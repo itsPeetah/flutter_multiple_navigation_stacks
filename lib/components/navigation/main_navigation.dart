@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_multiple_navigation_stacks_1/navigation/bottom_navigation.dart';
-import 'package:flutter_multiple_navigation_stacks_1/navigation/tab_item.dart';
+import 'package:flutter_multiple_navigation_stacks_1/components/navigation/bottom_navigation.dart';
 import 'package:flutter_multiple_navigation_stacks_1/pages/hello.dart';
+import 'package:flutter_multiple_navigation_stacks_1/util/navigation/tab_item.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({Key? key}) : super(key: key);

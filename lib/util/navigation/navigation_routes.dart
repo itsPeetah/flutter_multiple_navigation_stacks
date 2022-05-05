@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_multiple_navigation_stacks_1/navigation/main_navigation.dart';
-import 'package:flutter_multiple_navigation_stacks_1/pages/fork.dart';
+import 'package:flutter_multiple_navigation_stacks_1/components/navigation/main_navigation.dart';
 
 class MainNavigationRoutes {
   static const String root = "/";
