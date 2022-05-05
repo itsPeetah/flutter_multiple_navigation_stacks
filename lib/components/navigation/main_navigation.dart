@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_multiple_navigation_stacks_1/components/navigation/bottom_navigation.dart';
+import 'package:flutter_multiple_navigation_stacks_1/components/navigation/bottom_tab_bar.dart';
 import 'package:flutter_multiple_navigation_stacks_1/components/navigation/nested_navigator.dart';
 import 'package:flutter_multiple_navigation_stacks_1/util/navigation/navigation_routes.dart';
 import 'package:flutter_multiple_navigation_stacks_1/util/navigation/tab_item.dart';
@@ -57,7 +57,7 @@ class MainNavigationState extends State<MainNavigation> {
           _buildNavigator(TabItem.profile),
         ],
       ),
-      bottomNavigationBar: BottomNavigation(
+      bottomNavigationBar: BottomTabBar(
         currentTab: _currentTab,
         onSelectTab: _selectTab,
       ),
