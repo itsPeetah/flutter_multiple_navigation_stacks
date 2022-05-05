@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multiple_navigation_stacks_1/components/navigation/bottom_navigation.dart';
+import 'package:flutter_multiple_navigation_stacks_1/components/navigation/tab_navigator.dart';
 import 'package:flutter_multiple_navigation_stacks_1/pages/hello.dart';
 import 'package:flutter_multiple_navigation_stacks_1/util/navigation/tab_item.dart';
 
@@ -16,6 +17,13 @@ class MainNavigationState extends State<MainNavigation> {
 
   // Navigator key used for nested navigation in the home page
   final _homeNavigatorKey = GlobalKey<NavigatorState>();
+
+  Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
+    TabItem.home: GlobalKey<NavigatorState>(),
+    TabItem.map: GlobalKey<NavigatorState>(),
+    TabItem.cart: GlobalKey<NavigatorState>(),
+    TabItem.profile: GlobalKey<NavigatorState>(),
+  };
 
   void _selectTab(TabItem tabItem) {
     if (tabItem == _currentTab) {
@@ -36,11 +44,18 @@ class MainNavigationState extends State<MainNavigation> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
-        children: const [
-          HelloPage(title: "Home"),
-          HelloPage(title: "Map"),
-          HelloPage(title: "Cart"),
-          HelloPage(title: "Profile"),
+        children: [
+          TabNavigator(
+              navigatorKey: navigatorKeys[TabItem.home]!,
+              tabItem: TabItem.home),
+          TabNavigator(
+              navigatorKey: navigatorKeys[TabItem.map]!, tabItem: TabItem.map),
+          TabNavigator(
+              navigatorKey: navigatorKeys[TabItem.cart]!,
+              tabItem: TabItem.cart),
+          TabNavigator(
+              navigatorKey: navigatorKeys[TabItem.profile]!,
+              tabItem: TabItem.profile),
         ],
       ),
       bottomNavigationBar: BottomNavigation(
