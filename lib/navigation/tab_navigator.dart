@@ -15,7 +15,6 @@ class TabNavigator extends StatelessWidget {
 
   void _push(BuildContext context, {int materialIndex = 500}) {
     var routeBuilders = _routeBuilders(context, materialIndex: materialIndex);
-
     Navigator.push(
       context,
       MaterialPageRoute(
