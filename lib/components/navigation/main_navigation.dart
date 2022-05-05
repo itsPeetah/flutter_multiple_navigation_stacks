@@ -74,25 +74,25 @@ class MainNavigationState extends State<MainNavigation> {
         return NestedNavigator(
           navigatorKey: _homeNavigatorKey,
           initialRoute: NestedNavigatorRoutes.root,
-          onGenerateRoute: HomeNavigatorRouter.generateRoute,
+          onGenerateRoute: NestedNavigatorRouter.generateHomeRoute,
         );
       case TabItem.map:
         return NestedNavigator(
           navigatorKey: _mapNavigatorKey,
           initialRoute: NestedNavigatorRoutes.root,
-          onGenerateRoute: MapNavigatorRouter.generateRoute,
+          onGenerateRoute: NestedNavigatorRouter.generateMapRoute,
         );
       case TabItem.cart:
         return NestedNavigator(
           navigatorKey: _cartNavigatorKey,
           initialRoute: NestedNavigatorRoutes.root,
-          onGenerateRoute: CartNavigatorRouter.generateRoute,
+          onGenerateRoute: NestedNavigatorRouter.generateCartRoute,
         );
       case TabItem.profile:
         return NestedNavigator(
           navigatorKey: _profileNavigatorKey,
           initialRoute: NestedNavigatorRoutes.root,
-          onGenerateRoute: ProfileNavigatorRouter.generateRoute,
+          onGenerateRoute: NestedNavigatorRouter.generateProfileRoute,
         );
     }
   }
