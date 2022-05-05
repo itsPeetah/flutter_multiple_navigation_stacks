@@ -23,6 +23,10 @@ class MainNavigationState extends State<MainNavigation> {
 
   void _selectTab(TabItem tabItem) {
     if (tabItem == _currentTab) {
+      /*
+        Clicking the tab item again will bring back to "/".
+        Should not use a single class for the router, make four different ones
+       */
       switch (tabItem) {
         case TabItem.home:
           _homeNavigatorKey.currentState!.popUntil((route) => route.isFirst);
