@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multiple_navigation_stacks_1/components/navigation/bottom_tab_bar.dart';
 import 'package:flutter_multiple_navigation_stacks_1/components/navigation/nested_navigator.dart';
-import 'package:flutter_multiple_navigation_stacks_1/util/navigation/navigation_routes.dart';
+import 'package:flutter_multiple_navigation_stacks_1/util/navigation/nested_routes.dart';
 import 'package:flutter_multiple_navigation_stacks_1/util/navigation/tab_item.dart';
 
 class MainNavigation extends StatefulWidget {
@@ -73,26 +73,26 @@ class MainNavigationState extends State<MainNavigation> {
       case TabItem.home:
         return NestedNavigator(
           navigatorKey: _homeNavigatorKey,
-          initialRoute: TabNavigatorRoutes.home,
-          onGenerateRoute: TabNavigatorRouter.generateRoute,
+          initialRoute: NestedNavigatorRoutes.root,
+          onGenerateRoute: HomeNavigatorRouter.generateRoute,
         );
       case TabItem.map:
         return NestedNavigator(
           navigatorKey: _mapNavigatorKey,
-          initialRoute: TabNavigatorRoutes.map,
-          onGenerateRoute: TabNavigatorRouter.generateRoute,
+          initialRoute: NestedNavigatorRoutes.root,
+          onGenerateRoute: MapNavigatorRouter.generateRoute,
         );
       case TabItem.cart:
         return NestedNavigator(
           navigatorKey: _cartNavigatorKey,
-          initialRoute: TabNavigatorRoutes.cart,
-          onGenerateRoute: TabNavigatorRouter.generateRoute,
+          initialRoute: NestedNavigatorRoutes.root,
+          onGenerateRoute: CartNavigatorRouter.generateRoute,
         );
       case TabItem.profile:
         return NestedNavigator(
           navigatorKey: _profileNavigatorKey,
-          initialRoute: TabNavigatorRoutes.profile,
-          onGenerateRoute: TabNavigatorRouter.generateRoute,
+          initialRoute: NestedNavigatorRoutes.root,
+          onGenerateRoute: ProfileNavigatorRouter.generateRoute,
         );
     }
   }
