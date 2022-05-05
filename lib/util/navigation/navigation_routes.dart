@@ -50,7 +50,11 @@ class TabNavigatorRouter {
         return MaterialPageRoute(
           builder: (_) => const HelloPage(title: "Profile"),
         );
-      //case MainNavigationRoutes.root:
+      case "/":
+        return MaterialPageRoute(
+            builder: (_) => const HelloPage(
+                  title: "You shouldn't be here...",
+                ));
       default:
         return MaterialPageRoute(builder: (_) => const PageNotFound());
     }
