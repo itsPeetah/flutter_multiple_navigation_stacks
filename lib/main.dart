@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_multiple_navigation_stacks_1/app.dart';
 import 'package:flutter_multiple_navigation_stacks_1/navigation/navigation_routes.dart';
 
 void main() {
@@ -12,11 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Nested Navigation Tests',
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      initialRoute: NavigationRoutes.root,
+      /* Entry Point -> MainNavigation (tabbed view) */
+      initialRoute: MainNavigationRoutes.root,
+      /* Here to create pages based on route */
       onGenerateRoute: MainNavigatorRouter.generateRoute,
     );
   }
