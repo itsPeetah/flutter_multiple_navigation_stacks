@@ -8,6 +8,8 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  static final mainNavigatorKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,6 +21,7 @@ class MyApp extends StatelessWidget {
       initialRoute: MainNavigationRoutes.root,
       /* Here to create pages based on route */
       onGenerateRoute: MainNavigatorRouter.generateRoute,
+      navigatorKey: mainNavigatorKey,
     );
   }
 }
