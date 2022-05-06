@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_multiple_navigation_stacks_1/main.dart';
+import 'package:flutter_multiple_navigation_stacks_1/util/navigation/main_routes.dart';
 import 'package:flutter_multiple_navigation_stacks_1/util/navigation/nested_routes.dart';
 
 class ForkPage extends StatelessWidget {
@@ -24,6 +26,12 @@ class ForkPage extends StatelessWidget {
     Navigator.pop(context);
   }
 
+  void _pushMain() {
+    const rs = RouteSettings(name: "foobar");
+    final r = MainNavigatorRouter.generateRoute(rs);
+    MyApp.mainNavigatorKey.currentState!.push(r!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -41,7 +49,12 @@ class ForkPage extends StatelessWidget {
           ),
           Container(
             child: _backButton(context),
-          )
+          ),
+          TextButton(
+            onPressed: _pushMain,
+            child: const Text("Push main (will 404)",
+                style: TextStyle(fontSize: 28)),
+          ),
         ],
       ),
     );
