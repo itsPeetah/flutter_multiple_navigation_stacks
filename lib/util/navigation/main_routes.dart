@@ -18,7 +18,8 @@ class MainNavigatorRouter {
       case MainNavigationRoutes.root:
         return MaterialPageRoute(builder: (_) => const MainNavigation());
       default:
-        return MaterialPageRoute(builder: (_) => const PageNotFound());
+        return MaterialPageRoute(
+            builder: (_) => const Scaffold(body: PageNotFound()));
     }
   }
 }
