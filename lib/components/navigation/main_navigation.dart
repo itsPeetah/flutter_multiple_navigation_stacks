@@ -52,6 +52,9 @@ class MainNavigationState extends State<MainNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /*appBar: AppBar(
+        title: const Text("my app"),
+      ),*/
       body: PageView(
         controller: _pageController,
         children: [
