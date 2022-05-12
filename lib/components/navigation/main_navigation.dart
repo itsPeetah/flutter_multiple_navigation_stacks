@@ -56,6 +56,9 @@ class MainNavigationState extends State<MainNavigation> {
         title: const Text("my app"),
       ),*/
       body: PageView(
+        onPageChanged: (idx) => setState(() {
+          _currentTab = TabItem.values[idx];
+        }),
         controller: _pageController,
         children: [
           _buildNavigator(TabItem.home),
