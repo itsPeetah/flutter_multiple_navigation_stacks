@@ -44,20 +44,28 @@ class MainNavigationState extends State<MainNavigation> {
     } else {
       setState(() {
         _pageController.jumpToPage(tabItem.index);
-        _currentTab = tabItem;
+        _setCurrentTab(tabItem);
       });
     }
+  }
+
+  void _setCurrentTab(TabItem tabItem) {
+    _currentTab = tabItem;
+  }
+
+  String _getAppBarTitle() {
+    return _currentTab.toString();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
-        title: const Text("my app"),
-      ),*/
+      appBar: AppBar(
+        title: Text(_getAppBarTitle()),
+      ),
       body: PageView(
         onPageChanged: (idx) => setState(() {
-          _currentTab = TabItem.values[idx];
+          _setCurrentTab(TabItem.values[idx]);
         }),
         controller: _pageController,
         children: [
